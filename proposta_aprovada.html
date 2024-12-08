@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Agradecimento</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: linear-gradient(to right, #005ca9, #31a0e0); /* Cor da barra fixa */
+        }
+
+        .centered-image img {
+            width: 200px;
+            animation: pulse 2s infinite; /* Adiciona animação de pulsação */
+        }
+
+        .main-text h1 {
+            font-size: 24px;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        .additional-info {
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #008000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05); /* Pulsar a 105% do tamanho original */
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="centered-image">
+        <img src="imgscaixa/finalizar.png" alt="Imagem de Agradecimento">
+    </div>
+
+    <div class="main-text">
+        <h1>Empréstimo de R$ 3.250,00 Pré-aprovado com Sucesso!</h1>
+    </div>
+
+    <div class="additional-info">
+        <p>Volte para o WhatsApp e finalize a contratação do seu empréstimo!</p>
+    </div>
+
+    <a href="https://api.whatsapp.com/send?phone=5511963203178&text=Estou%20pronto%2C%20para%20finalizar%20a%20contrata%C3%A7%C3%A3o%20do%20empr%C3%A9stimo%21%20%F0%9F%98%83" class="btn">FINALIZAR NO WHATSAPP</a>
+</body>
+</html>

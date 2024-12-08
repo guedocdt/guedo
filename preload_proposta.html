@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Metadados da página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analisando Dados</title>
+
+    <!-- Estilos CSS para a página de preload -->
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-image: linear-gradient(to right, #005ca9, #31a0e0); /* Cores do seu site */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .loader-container {
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 200px; /* Define o tamanho máximo para o logotipo */
+            animation: pulse 2s infinite; /* Adiciona uma animação de pulsação ao logotipo */
+        }
+
+        .loading-text {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #fff; /* Cor branca para o texto */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.0); }
+            100% { transform: scale(0.9); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <img class="logo" src="imgscaixa/propostaapv.png" alt="Seu Logotipo"> <!-- Substitua "caminho-para-seu-logotipo.png" pelo caminho do seu logotipo -->
+        <div class="loading-text">Carregamento Seguro</div>
+    </div>
+
+    <script>
+        // Array com as palavras a serem exibidas
+        var words = ["Verificando propostas", "Aguarde...", "Finalizando..."];
+        var index = 0;
+        var textElement = document.querySelector(".loading-text");
+
+        function animateText() {
+            textElement.textContent = words[index];
+            index = (index + 1) % words.length;
+        }
+
+        setInterval(animateText, 1500); // Altera o texto a cada 1,5 segundos
+    </script>
+
+    <script>
+        setTimeout(function () {
+            // Redireciona para a página proposta_aprovada.html após 7 segundos
+            window.location.href = 'proposta_aprovada.html';
+        }, 7000); // Redireciona após 7 segundos
+    </script>
+</body>
+</html>
